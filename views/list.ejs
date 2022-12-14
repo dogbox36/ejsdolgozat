@@ -9,6 +9,14 @@
     <script src='main.js'></script>
 </head>
 <body>
+  <form action="/" method="GET">
+    <input
+      szem_szin="search" name="szem_szin"
+      placeholder="szem szín"
+    />
+    <button class="search-btn" type="submit">Submit</button>
+<div class="imae"></div>
+</form>
     <table border="1"><tr>
         <% for (let m of macskak) { %>
                 <td><a href="/macskak/<%= m.id %>">

@@ -16,17 +16,21 @@ import { MacskakDto } from './macskak.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('/')
   @Render('list')
-  async listmacskak(@Query('suly') suly = 1) {
+  async listmacskak(@Query('szem_szin') szem_szin = '') {
     const [rows] = await db.execute(
       'SELECT id, szem_szin, suly FROM macskak ORDER BY suly DESC',
-      [suly],
     );
-
-    return {
-      macskak: rows,
-    };
+    const [rows1] = await db.execute(
+      'SELECT suly, szem_szin FROM macskak WHERE szem_szin = ?',
+      [szem_szin],
+    );
+    if (szem_szin == '') {
+      return { macskak: rows };
+    } else {
+      return { macskak: rows1 };
+    }
   }
 
   @Get('macskak/new')
